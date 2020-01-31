@@ -1,10 +1,11 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom"; // adding router
+import { Switch, Route } from "react-router-dom";
 import CataloguePage from "./components/CataloguePage";
-import CheckoutPage from "./components/CheckoutPage"; // for router
+// import PaymentPage from "./components/PaymentPage";
+import CheckoutPage from "./components/CheckoutPage";
 import Toolbar from "./components/Toolbar";
-import PaymentPage from "./components/PaymentPage";
-// import "./App.css";
+import CategoriesList from "./components/CategoriesList";
+import "./App.css";
 
 export default class App extends React.Component {
   render() {
@@ -12,10 +13,10 @@ export default class App extends React.Component {
       <div className="App">
         <Toolbar />
         <Switch>
-          <Route path="/catalogue" component={CataloguePage} />
           <Route path="/checkout" component={CheckoutPage} />
-          <Route path="/checkout" component={PaymentPage} />
-          {/* <Route component={Homepage} /> */}
+          <Route path="/categories/:id/products" component={CategoriesList} />
+          {/* <Route path="/a" component={AnotherPage} /> */}
+          <Route component={CataloguePage} />
         </Switch>
       </div>
     );

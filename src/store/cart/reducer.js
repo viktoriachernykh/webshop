@@ -16,6 +16,20 @@ export default function reducer(state = initialState, action) {
         return updatedCart;
       }
     }
+    case "REMOVE_FROM_CART": {
+      const removedProductId = action.payload;
+      const isInCart = state.find(el => el.productId === removedProductId);
+      if (!isInCart) {
+        return state;
+      } else {
+        const updatedCart = state.map(el =>
+          el.productId === removedProductId && el.quantity > 0
+            ? { ...el, quantity: el.quantity - 1 }
+            : el
+        );
+        return updatedCart;
+      }
+    }
     default: {
       return state;
     }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateProducts } from "../store/cart/actions";
+import { updateAfterAdding } from "../store/cart/actions";
+import { updateAfterRemove } from "../store/cart/actions";
 import { fetchProducts } from "../store/catalogue/actions";
 import { fetchCategories } from "../store/categories/actions";
 // import CategoriesList from "./CategoriesList";
@@ -13,7 +14,11 @@ class CataloguePage extends Component {
   };
 
   addProduct = obj => {
-    this.props.dispatch(updateProducts(obj.id));
+    this.props.dispatch(updateAfterAdding(obj.id));
+  };
+
+  removeProduct = obj => {
+    this.props.dispatch(updateAfterRemove(obj.id));
   };
 
   render() {
@@ -34,14 +39,17 @@ class CataloguePage extends Component {
             ))}
             <p>We have {this.props.products.length} products!</p>
             <div className="productSection">
-              {this.props.products.map(everyProduct => (
-                <div className="productDiv" key={everyProduct.id}>
-                  <h2>{everyProduct.name}</h2>
-                  <img src={everyProduct.imageUrl} alt="Product" />
+              {this.props.products.map(product => (
+                <div className="productDiv" key={product.id}>
+                  <h2>{product.name}</h2>
+                  <img src={product.imageUrl} alt="Product" />
                   <p>
-                    Price: {everyProduct.price}$
-                    <button onClick={() => this.addProduct(everyProduct)}>
+                    Price: {product.price}$
+                    <button onClick={() => this.addProduct(product)}>
                       Add to cart
+                    </button>
+                    <button onClick={() => this.removeProduct(product)}>
+                      Remove from cart
                     </button>
                   </p>
                 </div>
@@ -55,7 +63,7 @@ class CataloguePage extends Component {
 }
 
 function mapStateToProps(reduxState) {
-  console.log("reduxState from CataloguePage", reduxState);
+  // console.log("reduxState from CataloguePage", reduxState);
   return {
     categories: reduxState.categories,
     products: reduxState.catalogue,

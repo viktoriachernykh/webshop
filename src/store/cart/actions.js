@@ -14,9 +14,16 @@
 // }
 
 // !!!!!
-export function updateProducts(productId) {
+export function updateAfterAdding(productId) {
   return {
     type: "ADD_TO_CART",
+    payload: productId
+  };
+}
+
+export function updateAfterRemove(productId) {
+  return {
+    type: "REMOVE_FROM_CART",
     payload: productId
   };
 }

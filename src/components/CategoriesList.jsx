@@ -1,13 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { updateAfterAdding } from "../store/cart/actions";
+import { updateAfterRemove } from "../store/cart/actions";
 
 class CategoriesList extends React.Component {
   render() {
     const catId = parseInt(this.props.match.params.id, 10);
-    console.log("catId", catId);
-    console.log("this.props.products from CategoriesList", this.props.products);
-
     const filteredProducts = this.props.products.filter(
       p => p.categoryId === catId && p
     );
@@ -21,13 +20,12 @@ class CategoriesList extends React.Component {
           <div>
             Choose category:
             <br />
-            {this.props.categories.map((cat, i) => (
+            {this.props.categories.map(cat => (
               <Link key={cat.id} to={`/categories/${cat.id}/products`}>
                 {cat.name}
                 <br />
               </Link>
             ))}
-            {/* <p>We have {this.props.products.length} products!</p> */}
             <div className="productSection">
               {filteredProducts
                 ? filteredProducts.map(p => (
@@ -36,8 +34,19 @@ class CategoriesList extends React.Component {
                       <img src={p.imageUrl} alt="Product" />
                       <p>
                         Price: {p.price}$
-                        <button onClick={() => this.addProduct(p)}>
+                        <button
+                          onClick={() =>
+                            this.props.dispatch(updateAfterAdding(p.id))
+                          }
+                        >
                           Add to cart
+                        </button>
+                        <button
+                          onClick={() =>
+                            this.props.dispatch(updateAfterRemove(p.id))
+                          }
+                        >
+                          Remove from cart
                         </button>
                       </p>
                     </div>
@@ -54,7 +63,8 @@ class CategoriesList extends React.Component {
 function mapStateToProps(reduxState) {
   return {
     categories: reduxState.categories,
-    products: reduxState.catalogue
+    products: reduxState.catalogue,
+    cart: reduxState.cart
   };
 }
 export default connect(mapStateToProps)(CategoriesList);

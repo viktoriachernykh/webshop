@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
-
+import categories from "./categories/reducer";
 import catalogue from "./catalogue/reducer";
-// import post from "./post/reducer";
+import cart from "./cart/reducer";
 
 export default combineReducers({
-  catalogue
-  // post
+  categories,
+  catalogue,
+  cart
   // we can add more "slice" subreducers here later on...
 });
 

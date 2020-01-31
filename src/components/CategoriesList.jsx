@@ -1,39 +1,60 @@
 import React from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-// import { fetchCategories } from "../store/categories/actions";
 
-// class CategoriesList extends React.Component {
-// componentDidMount() {
-//   this.props.dispatch(fetchCategories);
-// }
+class CategoriesList extends React.Component {
+  render() {
+    const catId = parseInt(this.props.match.params.id, 10);
+    console.log("catId", catId);
+    console.log("this.props.products from CategoriesList", this.props.products);
 
-// onCategoryClick = id => {
-//   // const categoryId = parseInt(this.props.match.params.id, 10);
-//   console.log("category id", id);
-//   const filteredProducts = this.props.products.filter(
-//     product => product.categoryId === id
-//   );
-//   // this.props.dispatch(fetchFilteredCategories);
-//   console.log("filteredProducts from this category", filteredProducts);
-// };
-const CategoriesList = props => {
-  return (
-    <div>
-      CATEGORIES
-      <Link to={`/categories/${props.cat.id}/products`}>
-        {props.cat.name}
-        <br />
-      </Link>
-    </div>
-  );
-};
+    const filteredProducts = this.props.products.filter(
+      p => p.categoryId === catId && p
+    );
 
-// function mapStateToProps(reduxState) {
-//   return {
-//     categories: reduxState.categories,
-//     products: reduxState.catalogue
-//   };
-// }
-export default CategoriesList;
-// connect(mapStateToProps)(CategoriesList);
+    return (
+      <div>
+        <p>Welcome to Catalogue Page!</p>
+        {!this.props.products || !this.props.categories ? (
+          <p>Loading products...</p>
+        ) : (
+          <div>
+            Choose category:
+            <br />
+            {this.props.categories.map((cat, i) => (
+              <Link key={cat.id} to={`/categories/${cat.id}/products`}>
+                {cat.name}
+                <br />
+              </Link>
+            ))}
+            {/* <p>We have {this.props.products.length} products!</p> */}
+            <div className="productSection">
+              {filteredProducts
+                ? filteredProducts.map(p => (
+                    <div className="productDiv" key={p.id}>
+                      <h2>{p.name}</h2>
+                      <img src={p.imageUrl} alt="Product" />
+                      <p>
+                        Price: {p.price}$
+                        <button onClick={() => this.addProduct(p)}>
+                          Add to cart
+                        </button>
+                      </p>
+                    </div>
+                  ))
+                : console.log("doesn't work")}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(reduxState) {
+  return {
+    categories: reduxState.categories,
+    products: reduxState.catalogue
+  };
+}
+export default connect(mapStateToProps)(CategoriesList);

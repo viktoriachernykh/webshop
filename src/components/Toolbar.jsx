@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Search from "./Search";
+import { searchProducts } from "../store/catalogue/actions";
 
 class Toolbar extends Component {
+  searchProducts = keyword => {
+    this.props.dispatch(searchProducts(keyword));
+  };
+
   render() {
     return (
       <div className="toolbarNav">
@@ -22,6 +28,7 @@ class Toolbar extends Component {
             .reduce((acc, c) => acc + c.price * c.quantity, 0)}
           {/* {this.props.cart.reduce((acc, c) => acc + c.price * c.quantity, 0)}$ */}
         </Link>
+        <Search searchProducts={this.searchProducts} />
       </div>
     );
   }

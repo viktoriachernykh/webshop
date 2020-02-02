@@ -3,32 +3,36 @@ body {
 }
 
 .productSection {
-  /* flex-direction: column;
-  justify-content: center; */
+  /* flex-direction: column; */
+  justify-content: space-evenly;
   height: 100%;
   display: grid;
-  grid-gap: 3px;
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-gap: 3px; */
+  grid-template-columns: repeat(5, 1fr);
   /* grid-template-rows: auto; */
 
   /* 
   grid-template: repeat(2, 50px) / repeat(3, 1fr);
   grid-gap: 3px; 
   */
-  justify-content: space-evenly;
+  text-align: center;
+}
+
+img {
+  width: 200px;
 }
 
 .productDiv {
   display: block;
-  width: 400px;
+  width: 200px;
   border: 1px solid rgb(235, 235, 235);
   border-radius: 5px;
   box-shadow: 5px 5px 5px rgb(196, 196, 196);
-  margin: 10px;
+  margin: 5px;
 }
 
 .toolbarNav {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-evenly;
 }

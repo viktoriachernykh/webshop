@@ -15,30 +15,36 @@ class CheckoutPage extends Component {
       <div>
         <p>Welcome to Checkout Page!</p>
         <p>Your cart includes:</p>
-        {productsInCart.map(c => (
-          // console.log(c)
-          // if (c.quantity > 0)
-          <div key={c.id}>
+        {productsInCart.map(product => (
+          <div key={product.id}>
             <h2>
-              Product: {c.name}, price: {c.price}, quantity:
+              Product: {product.name}, price: {product.price}, quantity:
               <button
-                onClick={() => this.props.dispatch(updateAfterRemove(c.id))}
+                onClick={() =>
+                  this.props.dispatch(updateAfterRemove(product.id))
+                }
               >
                 -
               </button>
-              {c.quantity}
+              {product.quantity}
               <button
-                onClick={() => this.props.dispatch(updateAfterAdding(c.id))}
+                onClick={() =>
+                  this.props.dispatch(updateAfterAdding(product.id))
+                }
               >
                 +
               </button>
-              total: {c.price * c.quantity}$
+              total: {product.price * product.quantity}$
             </h2>
           </div>
         ))}
         <h1>
           Total:{" "}
-          {productsInCart.reduce((acc, c) => acc + c.price * c.quantity, 0)}$
+          {productsInCart.reduce(
+            (acc, product) => acc + product.price * product.quantity,
+            0
+          )}
+          $
         </h1>
       </div>
     );
@@ -46,7 +52,6 @@ class CheckoutPage extends Component {
 }
 
 function mapStateToProps(reduxState) {
-  // console.log("reduxState from CheckoutPage", reduxState); // {catalogue: Array(20), cart: Array(2)}
   return {
     products: reduxState.catalogue,
     cart: reduxState.cart

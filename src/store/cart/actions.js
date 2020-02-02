@@ -7,13 +7,6 @@
 //   // inStock: false
 //   // price: "2374"
 
-//   return {
-//     type: "ADD_TO_CART",
-//     payload: obj
-//   };
-// }
-
-// !!!!!
 export function updateAfterAdding(productId) {
   return {
     type: "ADD_TO_CART",

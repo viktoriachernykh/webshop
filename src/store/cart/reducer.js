@@ -27,7 +27,7 @@ export default function reducer(state = initialState, action) {
             ? { ...el, quantity: el.quantity - 1 }
             : el
         );
-        return updatedCart;
+        return updatedCart.filter(p => p.quantity > 0);
       }
     }
     default: {

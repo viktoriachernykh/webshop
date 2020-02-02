@@ -6,10 +6,16 @@ export function fetchProducts(dispatch, getState) {
     dispatch(productsFetched(data));
   });
 }
-
 export function productsFetched(data) {
   return {
     type: "PRODUCTS_FETCHED",
     payload: data
+  };
+}
+
+export function searchProducts(keyword) {
+  return {
+    type: "SEARCH",
+    payload: keyword
   };
 }
